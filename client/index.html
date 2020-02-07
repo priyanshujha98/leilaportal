@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title data-i18n="title"></title>
+    <meta name="description" content="A demo of Stripe Payment Intents"/>
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="css/global.css"/>
+    <!-- Load Stripe.js on your website. -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="./script.js" defer></script>
+    <!-- Load translation files and libraries. -->
+    <script src="https://unpkg.com/i18next/i18next.js"></script>
+    <script src="https://unpkg.com/i18next-xhr-backend/i18nextXHRBackend.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./translation.js" defer></script>
+</head>
+
+<body>
+<div class="sr-root">
+    <div class="sr-main">
+        <header class="sr-header">
+            <div class="sr-header__logo"></div>
+        </header>
+        <h1>I would like to...</h1>
+        <button onclick="showScript()" id="script-btn">Request a Script</button>
+        <button id="ref-btn">Request a Referral</button>
+        <section class="container" id="script">
+            <h1> Script Request</h1>
+            <form id="form1" action="#" onsubmit="run()">
+                <ul>
+                    <li>
+                        <label for="name">Patient's Full Name:</label>
+                        <input type="text" id="name" name="user_name">
+                    </li>
+                    <li>
+                        <label for="mail">E-mail address:</label>
+                        <input type="email" id="mail" name="user_mail">
+                    </li>
+                    <li>
+                        <label for="phone">Mobile Phone Number:</label>
+                        <input type="tel" id="phone" name="user_phone">
+                    </li>
+                    <li>
+                        <label for="medication">Medication</label>
+                        <input type="text" id="medication" name="user_medication">
+                    </li>
+                    <li>
+                        <label for="pharmacy">Pharmacy</label>
+                        <input type="text" id="pharmacy" name="user_pharmacy">
+                    </li>
+                    <li>
+                        <label for="msg">Reason for request/notes:</label>
+                        <textarea id="msg" name="user_message"></textarea>
+                    </li>
+<!--                    <li class="button">-->
+                        <button id="submit2" type="submit">Proceed to payment</button>
+<!--                    </li>-->
+                </ul>
+            </form>
+        </section>
+        <!--        <section class="container" id="ref">-->
+
+        <!--            <form id="form1" action="#" onsubmit="run()">-->
+        <!--                <ul>-->
+        <!--                    <li>-->
+        <!--                        <label for="name">Patient's Full Name:</label>-->
+        <!--                        <input type="text"  id="name" name="user_name">-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <label for="mail">E-mail address:</label>-->
+        <!--                        <input type="email"  id="mail" name="user_mail">-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <label for="phone">Mobile Phone Number:</label>-->
+        <!--                        <input type="tel"  id="phone" name="user_phone">-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <label for="medication">Medication</label>-->
+        <!--                        <input type="text"  id="medication" name="user_medication">-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <label for="pharmacy">Pharmacy</label>-->
+        <!--                        <input type="text"  id="pharmacy" name="user_pharmacy">-->
+        <!--                    </li>-->
+        <!--                    <li>-->
+        <!--                        <label for="msg">Reason for request/notes:</label>-->
+        <!--                        <textarea id="msg" name="user_message"></textarea>-->
+        <!--                    </li>-->
+        <!--                    <li class="button">-->
+        <!--                        <button id="submit2" type="submit">Proceed to payment</button>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </form>-->
+        <!--        </section>-->
+        <div id="error-message"></div>
+    </div>
+</div>
+</body>
+</html>
