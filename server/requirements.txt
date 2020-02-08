@@ -2,12 +2,15 @@ certifi==2019.3.9
 chardet==3.0.4
 Click==7.0
 Flask==1.0.3
+Flask-Session==0.3.1
 idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
 python-dotenv==0.10.3
+python-http-client==3.2.4
 requests==2.22.0
+sendgrid==6.1.1
 stripe==2.29.3
 toml==0.9.6
 urllib3==1.25.3
