@@ -14,7 +14,7 @@ import requests
 #flask
 
 from flask import Flask, render_template, jsonify, request, send_from_directory, session, Session
-from flask_session import Session
+# from flask_session import Session
 from dotenv import load_dotenv, find_dotenv
 
 # Sendgrid
@@ -36,7 +36,7 @@ app.config.from_object(__name__)
 app.secret_key = "ilnzdfsdf"
 # app.config['SERVER_NAME'] = 'https://leila-267909.appspot.com'
 # app.config['SECRET_KEY'] = 'ilnzdfsdf'
-Session(app)
+# Session(app)
 
 
 @app.route('/', methods=['GET'])
@@ -60,7 +60,7 @@ def get_checkout_session():
     id = request.args.get('sessionId')
     checkout_session = stripe.checkout.Session.retrieve(id)
 
-    print(session.get('patient', 'NULL/notset'))
+    print('check:, ' + session['patient'])
 
     message = Mail(
         from_email='manummasson8@gmail.com',
