@@ -1,5 +1,9 @@
 runtime: python37
 
+env_variables:
+  secret_key: "ilnzdfsdf"
+  SECRET_KEY: "ilnzdfsdf"
+
 instance_class: F1
 
 handlers:
@@ -14,7 +18,5 @@ handlers:
 - url: /.*
   script: auto
 
-env_variables:
-  secret_key: "ilnzdfsdf"
-  SECRET_KEY: "ilnzdfsdf"
+
 
