@@ -59,22 +59,26 @@ def get_checkout_session():
 
     print(session.get('patient', 'NULL/notset'))
 
-    dictToSend = {'name': session['patient'], 'medication': session['medication'], 'pharmacy': session['pharmacy']}
-    res = requests.post('http://2d7289a6.ngrok.io/test', data=dictToSend)
+    # dictToSend = {'name': session['patient'], 'medication': session['medication'], 'pharmacy': session['pharmacy']}
+    # res = requests.post('http://2d7289a6.ngrok.io/test', data=dictToSend)
 
     message = Mail(
         from_email='manummasson8@gmail.com',
         to_emails='manummasson8@gmail.com',
-        subject='testing 123',
-        html_content='testapoos')
+        subject='New request for ' + session.get('medication', 'NULL/notset') + ' by ' + session.get('patient', 'NULL/notset'),
+        html_content='<li><h2>From: </h2>' + session.get('patient', 'NULL/notset') + "at " + session.get('email', 'NULL/notset') + ', ' + session.get('phone', 'NULL/notset') +'</li>'
+                     + '<li><h2>Medication: </h2><h3>' + session.get('medication', 'NULL/notset') + '</h3></li>'
+                     + '<li><h2>Pharmacy: </h2><h3>' + session.get('pharmacy', 'NULL/notset') + '</h3></li>'
+                     + '<li><h2>Notes: </h2> <h3>' + session.get('notes', 'NULL/notset') + '</h3></li>'
+    )
     try:
-        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        sg = SendGridAPIClient('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')
         response = sg.send(message)
         print(response.status_code)
         print(response.body)
         print(response.headers)
     except Exception as e:
-        print(e.message)
+        print(e)
     # session['patient'] = 0
     print("Test?")
     return jsonify(checkout_session)
@@ -97,8 +101,11 @@ def create_checkout_session():
         # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
         print(data)
         session['patient'] = data['patient']
+        session['email'] = data['email']
+        session['phone'] = data['phone']
         session['medication'] = data['medication']
         session['pharmacy'] = data['pharmacy']
+        session['notes'] = data['notes']
         print("no get: ", session['patient'])
         print("with get: ", session.get('patient', 'NULL/notset'))
 
@@ -154,4 +161,4 @@ def webhook_received():
 
 
 if __name__ == '__main__':
-    app.run(port=8080)
+    app.run(port=4242)

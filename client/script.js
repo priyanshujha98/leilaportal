@@ -21,8 +21,11 @@ var createCheckoutSession = function () {
         body: JSON.stringify({
             quantity: 1,
             patient: formData.get('user_name'),
+            email: formData.get('user_mail'),
+            phone: formData.get('user_phone'),
             medication: formData.get('user_medication'),
             pharmacy: formData.get('user_pharmacy'),
+            notes: formData.get('user_message'),
             locale: i18next.language.toLowerCase(),
         })
     }).then(function (result) {
