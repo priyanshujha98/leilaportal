@@ -34,7 +34,10 @@ app = Flask(__name__, static_folder=static_dir,
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 app.secret_key = "ilnzdfsdf"
+app.config['SERVER_NAME'] = 'https://leila-267909.appspot.com'
+app.config['SECRET_KEY'] = 'ilnzdfsdf'
 Session(app)
+
 
 @app.route('/', methods=['GET'])
 def get_example():
@@ -58,9 +61,6 @@ def get_checkout_session():
     checkout_session = stripe.checkout.Session.retrieve(id)
 
     print(session.get('patient', 'NULL/notset'))
-
-    # dictToSend = {'name': session['patient'], 'medication': session['medication'], 'pharmacy': session['pharmacy']}
-    # res = requests.post('http://2d7289a6.ngrok.io/test', data=dictToSend)
 
     message = Mail(
         from_email='manummasson8@gmail.com',
@@ -108,6 +108,7 @@ def create_checkout_session():
         session['notes'] = data['notes']
         print("no get: ", session['patient'])
         print("with get: ", session.get('patient', 'NULL/notset'))
+        session.modified = True
 
         checkout_session = stripe.checkout.Session.create(
             success_url=domain_url +
