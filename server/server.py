@@ -34,8 +34,8 @@ app = Flask(__name__, static_folder=static_dir,
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 app.secret_key = "ilnzdfsdf"
-app.config['SERVER_NAME'] = 'https://leila-267909.appspot.com'
-app.config['SECRET_KEY'] = 'ilnzdfsdf'
+# app.config['SERVER_NAME'] = 'https://leila-267909.appspot.com'
+# app.config['SECRET_KEY'] = 'ilnzdfsdf'
 Session(app)
 
 
