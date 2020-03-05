@@ -126,6 +126,7 @@ def create_checkout_session():
         )
         return jsonify({'sessionId': checkout_session['id']})
     except Exception as e:
+        print("ERRROR", e)
         return jsonify(e), 40
 
 
