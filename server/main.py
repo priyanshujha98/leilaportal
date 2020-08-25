@@ -33,14 +33,20 @@ app = Flask(__name__, static_folder=static_dir,
 
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
-app.secret_key = "ilnzdfsdf"
-# app.config['SERVER_NAME'] = 'https://leila-267909.appspot.com'
-# app.config['SECRET_KEY'] = 'ilnzdfsdf'
+app.secret_key = b'ilnzdfsdf'
+# app.config['SERVER_NAME'] = 'requests.drleilamasson.com'
+app.config['SECRET_KEY'] = b'ilnzdfsdf'
 Session(app)
 
 
 @app.route('/', methods=['GET'])
 def get_example():
+    print(session.sid)
+    try:
+        print(session['patient'])
+    except Exception as e:
+        print(e)
+
     return render_template('index.html')
 
 
@@ -56,11 +62,16 @@ def get_publishable_key():
 @app.route('/checkout-session', methods=['GET'])
 def get_checkout_session():
 
-    #TODO: if session[patient] != 0
+    print("Attempting to send emaill beep")
+
+    #TODO: if session[patient] != 0, to ensure security
     id = request.args.get('sessionId')
     checkout_session = stripe.checkout.Session.retrieve(id)
 
-    print('check:, ' + session['patient'])
+    print(session.sid)
+
+    print("with get: ", session.get('patient', 'NULL/notset'))
+    # print('check:, ' + session['patient'])
 
     message = Mail(
         from_email='manummasson8@gmail.com',
