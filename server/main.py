@@ -13,8 +13,8 @@ import requests
 
 #flask
 
-from flask import Flask, render_template, jsonify, request, send_from_directory, session, Session
-from flask_session import Session
+from flask import Flask, render_template, jsonify, request, send_from_directory, session
+# from flask_session import Session
 from dotenv import load_dotenv, find_dotenv
 
 # Sendgrid
@@ -36,12 +36,13 @@ app.config.from_object(__name__)
 app.secret_key = b'ilnzdfsdf'
 # app.config['SERVER_NAME'] = 'requests.drleilamasson.com'
 app.config['SECRET_KEY'] = b'ilnzdfsdf'
-Session(app)
+# Session(app)
 
 
 @app.route('/', methods=['GET'])
 def get_example():
-    print(session.sid)
+    # print(session.sid)
+    print('im in home page')
     try:
         print(session['patient'])
     except Exception as e:
@@ -52,6 +53,7 @@ def get_example():
 
 @app.route('/config', methods=['GET'])
 def get_publishable_key():
+    print('im in config page')
     return jsonify({
       'publicKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
       'basePrice': os.getenv('BASE_PRICE'),
@@ -61,21 +63,21 @@ def get_publishable_key():
 # Fetch the Checkout Session to display the JSON result on the success page
 @app.route('/checkout-session', methods=['GET'])
 def get_checkout_session():
-
+    print('im in checkout-session page')
     print("Attempting to send emaill beep")
 
     #TODO: if session[patient] != 0, to ensure security
     id = request.args.get('sessionId')
     checkout_session = stripe.checkout.Session.retrieve(id)
 
-    print(session.sid)
+    # print(session.sid)
 
     print("with get: ", session.get('patient', 'NULL/notset'))
     # print('check:, ' + session['patient'])
 
     message = Mail(
         from_email='manummasson8@gmail.com',
-        to_emails='manummasson8@gmail.com',
+        to_emails='priyanshujha98@gmail.com',
         subject='New request for ' + session.get('medication', 'NULL/notset') + ' by ' + session.get('patient', 'NULL/notset'),
         html_content='<li><h2>From: </h2>' + session.get('patient', 'NULL/notset') + "at " + session.get('email', 'NULL/notset') + ', ' + session.get('phone', 'NULL/notset') +'</li>'
                      + '<li><h2>Medication: </h2><h3>' + session.get('medication', 'NULL/notset') + '</h3></li>'
@@ -98,6 +100,7 @@ def get_checkout_session():
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
+    print('im in create-checkout-session page')
     data = json.loads(request.data)
     domain_url = os.getenv('DOMAIN')
     try:
@@ -143,6 +146,7 @@ def create_checkout_session():
 
 @app.route('/webhook', methods=['POST'])
 def webhook_received():
+    print('im in webhook page')
     # You can use webhooks to receive information about asynchronous payment events.
     # For more about our webhook events check out https://stripe.com/docs/webhooks.
     webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
